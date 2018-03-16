@@ -28,7 +28,7 @@ jobs:
       - run:
           name: Write NPM Token to ~/.npmrc
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-      - run: npm publish
+      - run: npm publish --unsafe-perm
 
 workflows:
   version: 2
