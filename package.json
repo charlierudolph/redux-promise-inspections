@@ -1,6 +1,6 @@
 {
   "name": "redux-promise-inspections",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A set of actions / reducer / helpers for inspecting the status of an asynchronous redux action",
   "repository": "git@github.com:charlierudolph/redux-promise-inspections.git",
   "author": "Charles Rudolph <charles.w.rudolph@gmail.com>",
