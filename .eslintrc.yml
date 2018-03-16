@@ -1,0 +1,15 @@
+extends:
+  - standard
+  - prettier
+  - prettier/standard
+
+plugins:
+  - babel
+  - prettier
+
+rules:
+  prettier/prettier:
+    - error
+    - trailingComma: es5
+      singleQuote: true
+      semi: false
