@@ -24,6 +24,7 @@ jobs:
       - checkout
       - restore_cache:
           key: dependencies-{{ checksum "yarn.lock" }}
+      - run: yarn install
       - run:
           name: Write NPM Token to ~/.npmrc
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
