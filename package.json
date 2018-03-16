@@ -44,7 +44,7 @@
     "build": "babel src --out-dir dist --ignore _test.js",
     "lint-fix": "eslint --fix src test",
     "lint": "eslint src test",
-    "prepublish": "yarn build",
+    "prepare": "yarn build",
     "test": "yarn run lint && yarn run unit-test",
     "unit-test": "mocha 'src/**/*_test.js'"
   }
