@@ -1,29 +1,61 @@
 version: 2
 jobs:
-  test:
+  test-node8:
     docker:
-      - image: node:8.9
+      - image: node:8
     working_directory: ~/redux-promise-inspections
     steps:
       - checkout
       - restore_cache:
-          key: dependencies-{{ checksum "yarn.lock" }}
+          key: dependencies-node8-{{ checksum "yarn.lock" }}
       - run: yarn install
       - save_cache:
           paths:
             - node_modules
-          key: dependencies-{{ checksum "yarn.lock" }}
+          key: dependencies-node8-{{ checksum "yarn.lock" }}
+      - run: yarn test
+      - run: yarn build
+
+  test-node10:
+    docker:
+      - image: node:10
+    working_directory: ~/redux-promise-inspections
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependencies-node10-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies-node10-{{ checksum "yarn.lock" }}
+      - run: yarn test
+      - run: yarn build
+
+  test-node12:
+    docker:
+      - image: node:12
+    working_directory: ~/redux-promise-inspections
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependencies-node12-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies-node12-{{ checksum "yarn.lock" }}
       - run: yarn test
       - run: yarn build
 
   deploy:
     docker:
-      - image: node:8.9
+      - image: node:12
     working_directory: ~/redux-promise-inspections
     steps:
       - checkout
       - restore_cache:
-          key: dependencies-{{ checksum "yarn.lock" }}
+          key: dependencies-node12-{{ checksum "yarn.lock" }}
       - run: yarn install
       - run:
           name: Write NPM Token to ~/.npmrc
@@ -34,13 +66,23 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - test:
+      - test-node8:
+          filters:
+            tags:
+              only: /.*/
+      - test-node10:
+          filters:
+            tags:
+              only: /.*/
+      - test-node12:
           filters:
             tags:
               only: /.*/
       - deploy:
           requires:
-            - test
+            - test-node8
+            - test-node10
+            - test-node12
           filters:
             branches:
               ignore: /.*/

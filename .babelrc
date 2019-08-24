@@ -1,8 +1,5 @@
 {
-  "plugins": [
-    "transform-es2015-arrow-functions",
-    "transform-object-rest-spread",
-    "transform-runtime"
-  ],
-  "presets": ["env"]
+  "presets": [
+    ["@babel/preset-env", {"targets": "maintained node versions"}]
+  ]
 }
